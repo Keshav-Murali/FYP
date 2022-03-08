@@ -9,7 +9,7 @@ Final year Project
 TestU01 and PractRand libraries need to present within the repository's directory.
 The next two subsections can be followed after cd'ing into the repository.
 
-## Installing TestU01
+## Installing PractRand
 ```
 mkdir PractRand
 cd PractRand
@@ -24,7 +24,9 @@ g++ -std=c++14 -o RNG_test tools/RNG_test.cpp libPractRand.a -Iinclude -pthread
 
 Install instructions adapted from [this link.](https://www.pcg-random.org/posts/how-to-test-with-practrand.html)
 
-## Installing PractRand
+Do NOT compile with optimization (-O3) flag - will result in RNGTest crashing
+
+## Installing TestU01
 ```
 mkdir TestU01
 cd TestU01
@@ -41,4 +43,7 @@ mv lib/*.so lib-so/.
 ```
 
 Install instructions adapted from [this link.](https://www.pcg-random.org/posts/how-to-test-with-testu01.html)
+
+Pending: instructions for compiling while using TestU01 libraries
+
 
