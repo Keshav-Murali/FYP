@@ -35,19 +35,6 @@ public:
 
   double generateNormalized()
   {
-   uint64_t x = state[0];
-
-    parameters[0]=state[0];
-    parameters[1]=state[1];
-
-    parameters[1] ^= parameters[0];
-    parameters[0] = leftRotate(parameters[0],24);
-    parameters[0] = parameters[0] ^ parameters[1] ^ (parameters[1]<<16);
-    parameters[1] = leftRotate(parameters[1],37);
-
-    state[0]=parameters[0];
-    state[1]=parameters[1];
-
-    return (double) x / UINT64_MAX;
+    return (double) this->generateNumber() / UINT64_MAX;
   }
 };

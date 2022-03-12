@@ -38,20 +38,39 @@ public:
 template <class T>
 class combinationGenerator : public generator<T> {
 private:
-  simpleGenerator<T> s1, s2;
+  simpleGenerator<T>& s1, &s2;
   //  mixer<T> m;
   T (*mixer)(T value);
 public:
   //  combinationGenerator(simpleGenerator<T> p, simpleGenerator<T> q, mixer<T> r) :
-  combinationGenerator(simpleGenerator<T> p, simpleGenerator<T> q, T (*r)(T) ) :
+  combinationGenerator(simpleGenerator<T> &p, simpleGenerator<T> &q, T (*r)(T) ) :
     s1(p), s2(q), mixer(r)
   {
   }
   
-  combinationGenerator split() {
+  /*  combinationGenerator<T> split() {
+    std::deque<T> l11, l12, l21, l22;
+    for(auto i = 0; i < s1.state_size; i++) {
+      l11.push_back(this->generateNumber());
+    }
     
-    return new combinationGenerator(s1, s2);
+    for(auto i = 0; i < s1.parameters_size; i++) {
+      l12.push_back(this->generateNumber());
+    }
+    
+    for(auto i = 0; i < s2.state_size; i++) {
+      l21.push_back(this->generateNumber());
+    }
+    
+    for(auto i = 0; i < s2.parameters_size; i++) {
+      l22.push_back(this->generateNumber());
+    }
+		
+    auto s3 = new *decltype(s1)(l11, l12);
+    decltype(s2) s4(l21, l22);
+    return combinationGenerator(s3, s4, mixer);
   }
+  */
 
   T generateNumber()
   {
@@ -59,6 +78,12 @@ public:
     T val2 = s2.generateNumber();
     T combination = val1 + val2;
 
-    return m(combination);
+    return mixer(combination);
   }
+
+  double generateNormalized()
+  {
+    return (double) generateNumber();
+  }
+
 };

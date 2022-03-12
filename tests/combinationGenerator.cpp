@@ -20,6 +20,23 @@ public:
 
   double generateNormalized()
   {
+    int x = state[0];
+    state[0] = state[0] * parameters[0];
+    return (double) x / INT_MAX;
+  }
+};
+
+int identity_mixer(int val)
+{
+  return val;
+}
+
+class exampleCombinationGenerator : public combinationGenerator<int> {
+  using combinationGenerator<int>::combinationGenerator;
+  
+public:
+  double generateNormalized()
+  {
     return (double) this->generateNumber() / INT_MAX;
   }
 };
@@ -31,8 +48,17 @@ int main()
   std::deque<int> a1{5}, a2{2};
 
   exampleGenerator g(a1, a2);
+  exampleGenerator h(a1, a2);
+  exampleCombinationGenerator c(g, h, &identity_mixer);
+  //  combinationGenerator<int> d = c.split();
+  
   while(n--) {
-    std::cout << g.generateNumber() << " " << g.generateNormalized() << std::endl;
+    std::cout << c.generateNumber() << " " << c.generateNormalized() << std::endl;
   }
+
+  //  n = 10;
+  //  while(n--) {
+  //    std::cout << d.generateNumber() << " " << d.generateNormalized() << std::endl;
+  //  }
   return 0;
 }
