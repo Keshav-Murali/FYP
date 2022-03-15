@@ -2,6 +2,10 @@
 #include <cstdlib>
 #include <climits>
 #include <deque>
+#include <limits>
+
+#ifndef GENERATOR_H
+#define GENERATOR_H
 
 // Interface for Random Number Generator
 template <class T>
@@ -83,7 +87,9 @@ public:
 
   double generateNormalized()
   {
-    return (double) generateNumber();
+    return (double) generateNumber() / std::numeric_limits<T>::max();
   }
 
 };
+
+#endif
