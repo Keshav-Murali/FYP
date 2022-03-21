@@ -5,24 +5,39 @@
 // LCG with modulo 2^k has one state variable and two parameters, for comparison
 class exampleGenerator : public simpleGenerator<int> {
 public:
-  const size_t state_size = 1;
-  const size_t parameters_size = 1;
+  int state;
+  int multiplier;
   
-  using simpleGenerator<int>::simpleGenerator;
+  size_t numParameters = 2;
+
+  //  using simpleGenerator<int>::simpleGenerator;
+  
+  exampleGenerator(std::vector<int> &params) : simpleGenerator<int>::simpleGenerator(params) {
+    if (params.size() != numParameters) {
+      std::cerr << "Generator initialized with incorrect number of parameters! Expecting "
+		<< numParameters << std::endl;
+      std::exit(0);
+    }
+
+    state = params[0];
+    multiplier = params[1];
+  }
+
+  simpleGenerator* createNewGenerator(std::vector<int> &params) {
+    return new exampleGenerator(params);
+  }
+
+    size_t getNumParameters()
+  {
+    return numParameters;
+  }
+
   
   int generateNumber()
   {
-    int x = state[0];
-    state[0] = state[0] * parameters[0];
+    int x = state;
+    state = state * multiplier;
     return x;
-
-  }
-
-  double generateNormalized()
-  {
-    int x = state[0];
-    state[0] = state[0] * parameters[0];
-    return (double) x / INT_MAX;
   }
 };
 
@@ -31,34 +46,27 @@ int identity_mixer(int val)
   return val;
 }
 
-class exampleCombinationGenerator : public combinationGenerator<int> {
-  using combinationGenerator<int>::combinationGenerator;
-  
-public:
-  double generateNormalized()
-  {
-    return (double) this->generateNumber() / INT_MAX;
-  }
-};
 
 int main()
 {
-  int n = 10;
-  std::cout << INT_MAX << std::endl;
-  std::deque<int> a1{5}, a2{2};
+  int n = 4;
+  std::vector<int> v1 {1,2}, v2 {1, 3};
 
-  exampleGenerator g(a1, a2);
-  exampleGenerator h(a1, a2);
-  exampleCombinationGenerator c(g, h, &identity_mixer);
-  //  combinationGenerator<int> d = c.split();
+  simpleGenerator<int>* g1 = new exampleGenerator(v1);
+  simpleGenerator<int>* g2 = new exampleGenerator(v2);
+  combinationGenerator<int>* c1 = new combinationGenerator<int>(g1, g2, &identity_mixer);
+  combinationGenerator<int>* c2 = c1->split();
   
   while(n--) {
-    std::cout << c.generateNumber() << " " << c.generateNormalized() << std::endl;
+    std::cout << c1->generateNumber() << " " << c1->generateNormalized() << std::endl;
   }
 
-  //  n = 10;
-  //  while(n--) {
-  //    std::cout << d.generateNumber() << " " << d.generateNormalized() << std::endl;
-  //  }
+  n = 4;
+
+  while(n--) {
+    std::cout << c2->generateNumber() << " " << c2->generateNormalized() << std::endl;
+  }
+  
+
   return 0;
 }

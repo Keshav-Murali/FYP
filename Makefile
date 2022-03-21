@@ -15,5 +15,7 @@ test_xoro:
 	tests/xoroshiro
 	g++ -o tests/xoroshiro_PractRand tests/xoroshiro_PractRand.cpp
 	timeout 20s tests/xoroshiro_PractRand | PractRand/RNG_test stdin64
-
+test_comb:
+	g++ -o tests/combinationGenerator tests/combinationGenerator.cpp
+	tests/combinationGenerator
 

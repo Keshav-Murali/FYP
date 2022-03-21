@@ -1,8 +1,10 @@
 #include <cstdint>
 #include <cstdlib>
 #include <climits>
+#include <vector>
 #include <deque>
 #include <limits>
+#include <exception>
 
 #ifndef GENERATOR_H
 #define GENERATOR_H
@@ -15,21 +17,19 @@ public:
   virtual T generateNumber() = 0;
 
   // Returns value in [0, 1]
-  virtual double generateNormalized() = 0;
+  double generateNormalized()
+  {
+    return (double) generateNumber() / std::numeric_limits<T>::max();
+  }
+
 };
 
 template <class T>
 class simpleGenerator : public generator<T> {
 public:
-  const size_t state_size = 0;
-  const size_t parameters_size = 0;
-  
-  simpleGenerator(std::deque<T>& s, std::deque<T>& p) : state(s), parameters(p) {
-  }
-  
-protected:
-  std::deque<T> state;
-  std::deque<T> parameters;  
+  simpleGenerator(std::vector<T> &params) {} 
+  virtual simpleGenerator* createNewGenerator(std::vector<T> &params) = 0;
+  virtual size_t getNumParameters() = 0;
 };
 
 /*template <class T>
@@ -42,52 +42,42 @@ public:
 template <class T>
 class combinationGenerator : public generator<T> {
 private:
-  simpleGenerator<T>& s1, &s2;
+  simpleGenerator<T>* s1, *s2;
   //  mixer<T> m;
   T (*mixer)(T value);
+  
 public:
   //  combinationGenerator(simpleGenerator<T> p, simpleGenerator<T> q, mixer<T> r) :
-  combinationGenerator(simpleGenerator<T> &p, simpleGenerator<T> &q, T (*r)(T) ) :
+  combinationGenerator(simpleGenerator<T> *p, simpleGenerator<T> *q, T (*r)(T) ) :
     s1(p), s2(q), mixer(r)
   {
   }
   
-  /*  combinationGenerator<T> split() {
-    std::deque<T> l11, l12, l21, l22;
-    for(auto i = 0; i < s1.state_size; i++) {
-      l11.push_back(this->generateNumber());
-    }
-    
-    for(auto i = 0; i < s1.parameters_size; i++) {
-      l12.push_back(this->generateNumber());
-    }
-    
-    for(auto i = 0; i < s2.state_size; i++) {
-      l21.push_back(this->generateNumber());
-    }
-    
-    for(auto i = 0; i < s2.parameters_size; i++) {
-      l22.push_back(this->generateNumber());
-    }
-		
-    auto s3 = new *decltype(s1)(l11, l12);
-    decltype(s2) s4(l21, l22);
-    return combinationGenerator(s3, s4, mixer);
-  }
-  */
+  combinationGenerator<T>* split() {
+    auto x = s1->getNumParameters(), y = s2->getNumParameters();
+    //    std::cout << "parameters size: " << x << " " << y << std::endl;
+    std::vector<T> v1, v2;
 
+    for(auto i = 0; i < x; i++)
+      v1.push_back(this->generateNumber());
+  
+    
+    for(auto i = 0; i < y; i++)
+      v2.push_back(this->generateNumber());
+    
+    simpleGenerator<T> *p = s1->createNewGenerator(v1);
+    simpleGenerator<T> *q = s2->createNewGenerator(v2);
+
+    return new combinationGenerator<T>(p, q, mixer);
+  }  
+  
   T generateNumber()
   {
-    T val1 = s1.generateNumber();
-    T val2 = s2.generateNumber();
+    T val1 = s1->generateNumber();
+    T val2 = s2->generateNumber();
     T combination = val1 + val2;
 
     return mixer(combination);
-  }
-
-  double generateNormalized()
-  {
-    return (double) generateNumber() / std::numeric_limits<T>::max();
   }
 
 };
