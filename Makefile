@@ -18,4 +18,10 @@ test_xoro:
 test_comb:
 	g++ -o tests/combinationGenerator tests/combinationGenerator.cpp
 	tests/combinationGenerator
+test_LXM:
+	g++ -o tests/LXM tests/LXM.cpp
+	tests/LXM
+	g++ -o tests/LXM_PractRand tests/LXMPractRand.cpp
+	timeout 120s tests/LXM_PractRand | PractRand/RNG_test stdin64
+
 

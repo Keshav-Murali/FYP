@@ -1,8 +1,6 @@
 #include <iostream>
 #include "../src/generator.hpp"
 
-// Example generator with one state variable and one parameter
-// LCG with modulo 2^k has one state variable and two parameters, for comparison
 class exampleGenerator : public simpleGenerator<int> {
 public:
   int state;

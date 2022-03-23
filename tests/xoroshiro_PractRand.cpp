@@ -4,11 +4,11 @@
 
 int main()
 {
-  std::deque<uint64_t> a1{1,2}, a2{1,2};
+  std::vector<uint64_t> v {5, 0};
+  simpleGenerator<uint64_t> *g = new xoroshiroGenerator(v);
 
-  xoroshiroGenerator g(a1, a2);
   while(true) {
-    uint64_t val = g.generateNumber();
+    uint64_t val = g->generateNumber();
     fwrite((void *) &val, sizeof(val), 1, stdout);
   }
   return 0;

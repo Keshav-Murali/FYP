@@ -1,30 +1,37 @@
 #include "generator.hpp"
 
-// Example generator with one state variable and one parameter
-// LCG with modulo 2^k has one state variable and two parameters, for comparison
 class LCGenerator : public simpleGenerator<uint64_t> {
 public:
-  const size_t state_size = 1;
-  const size_t parameters_size = 1;
+  size_t numParameters = 2;
+  uint64_t state, additive_constant;
   const uint64_t multiplier=0xd1342543de82ef95;
 
-  using simpleGenerator<uint64_t>::simpleGenerator;
+  //  using simpleGenerator<uint64_t>::simpleGenerator;
   
-  LCGenerator(std::deque<uint64_t>& s, std::deque<uint64_t>& p) : simpleGenerator{s, p} {
-    parameters[0] = parameters[0] | 1;
+  LCGenerator(std::vector<uint64_t> &params) : simpleGenerator<uint64_t>::simpleGenerator(params) {
+    if (params.size() != numParameters) {
+      std::cerr << "Generator initialized with incorrect number of parameters! Expecting "
+		<< numParameters << std::endl;
+      std::exit(0);
+    }
+
+    state = params[0];
+    additive_constant = params[1] | 1;
   }
 
-  
   uint64_t generateNumber()
   {
-    uint64_t x = state[0];
-    state[0] = state[0] * multiplier + parameters[0];
+    uint64_t x = state;
+    state = state * multiplier + additive_constant;
     return x;
-
   }
 
-  double generateNormalized()
+  simpleGenerator* createNewGenerator(std::vector<uint64_t> &params) {
+    return new LCGenerator(params);
+  }
+  
+  size_t getNumParameters()
   {
-    return (double) this->generateNumber() / UINT64_MAX;
+    return numParameters;
   }
 };

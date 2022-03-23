@@ -5,15 +5,12 @@
 
 int main()
 {
-  int n = 10;
-  std::random_device randDev;
-  int rDev=randDev();
-  std::deque<uint64_t> s{5}, p{rDev};
-
-  LCGenerator g(s, p);
+  std::vector<uint64_t> v {5, 0};
+  simpleGenerator<uint64_t> *g = new LCGenerator(v);
   while(true) {
-    uint64_t val = g.generateNumber();
+    uint64_t val = g->generateNumber();
     fwrite((void *) &val, sizeof(val), 1, stdout); 
   }
+  
   return 0;
 }
