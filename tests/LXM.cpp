@@ -3,6 +3,7 @@
 #include "../src/xoroshiro.hpp"
 #include "../src/mixer.h"
 #include <chrono>
+#include <cstdlib>
 
 using std::chrono::high_resolution_clock;
 using std::chrono::duration_cast;
@@ -22,28 +23,29 @@ int main()
   std::vector<uint64_t> v2 {1, 2};
   LCGenerator l(v1);
   xoroshiroGenerator x(v2);
-  
+  uint64_t *arr = (uint64_t *) malloc(100000000 * sizeof(uint64_t));
   combinationGenerator<uint64_t> c(&l, &x, &lea64);
   combinationGenerator<uint64_t> *c2 = c.split();
   
-  while(n--) {
-    std::cout << c.generateNumber() << " " << c.generateNormalized() << std::endl;
-  }
+//  while(n--) {
+//    std::cout << c.generateNumber() << " " << c.generateNormalized() << std::endl;
+//  }
  
-  n = 10;
-  while(n--) {
-    std::cout << c2->generateNumber() << " " << c2->generateNormalized() << std::endl;
-  }
+  //  n = 10;
+  //  while(n--) {
+  //    std::cout << c2->generateNumber() << " " << c2->generateNormalized() << std::endl;
+  //  }
   
-  n = 100000000;
+  n = 10000000;
   auto t1 = high_resolution_clock::now();
   for (auto i = 0; i < n; i++) {
-    c.generateNumber();
-  }
+    arr[i] = c.generateNumber();
+  }  
   auto t2 = high_resolution_clock::now();
   duration<double, std::milli> ms_double = t2 - t1;
   std::cout << "Time to generate 10^8 numbers for LXM: " << ms_double.count() << "ms\n";
 
+  /*
   t1 = high_resolution_clock::now();
   for (auto i = 0; i < n; i++) {
     c.generateNormalized();
@@ -51,15 +53,17 @@ int main()
   t2 = high_resolution_clock::now();
   ms_double = t2 - t1;
   std::cout << "Time to generate 10^8 fractions for LXM: " << ms_double.count() << "ms\n";
-
+  */
+  
+  
   t1 = high_resolution_clock::now();
   for (auto i = 0; i < n; i++) {
-    c2->generateNumber();
+    arr[i] = c2->generateNumber();
   }
   t2 = high_resolution_clock::now();
   ms_double = t2 - t1;
   std::cout << "Time to generate 10^8 numbers for splitted: " << ms_double.count() << "ms\n";
-  
+  /*
   t1 = high_resolution_clock::now();
   for (auto i = 0; i < n; i++) {
     c2->generateNormalized();
@@ -68,7 +72,7 @@ int main()
   ms_double = t2 - t1;
   std::cout << "Time to generate 10^8 fractions for splitted LXM: " << ms_double.count() << "ms\n";
 
-  
+  */
 
   
   return 0;

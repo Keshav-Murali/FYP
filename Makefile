@@ -23,5 +23,11 @@ test_LXM:
 	tests/LXM
 	g++ -o tests/LXM_PractRand tests/LXMPractRand.cpp
 	timeout 120s tests/LXM_PractRand | PractRand/RNG_test stdin64
+test_perf:
+	g++ -o tests/ctest tests/ctest.cpp -Ofast -std=c++2a
+	tests/ctest
+	cd tests ; javac timing.java ; java timing
+
+
 
 

@@ -5,9 +5,6 @@
 int main()
 {
   int n = 25;
-  //  std::random_device randDev;
-  //  int rDev=randDev();
-  //  std::deque<uint64_t> s{5}, p{rDev};
   std::vector<uint64_t> v {5, 0};
   simpleGenerator<uint64_t> *g = new LCGenerator(v);
   LCGenerator g1(v);

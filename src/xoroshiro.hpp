@@ -1,5 +1,6 @@
 #include "generator.hpp"
 #include <random>
+#include <bit>
 
 uint64_t leftRotate(uint64_t n, unsigned int d)
 {
@@ -43,8 +44,10 @@ public:
 
     t1 ^= t0;
     t0 = leftRotate(t0,24);
+    //    t0 = std::rotl(t0, 24);
     t0 = t0 ^ t1 ^ (t1<<16);
     t1 = leftRotate(t1,37);
+    //    t1 = std::rotl(t1, 37);
 
     s0=t0;
     s1=t1;
