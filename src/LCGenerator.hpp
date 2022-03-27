@@ -6,8 +6,6 @@ public:
   uint64_t state, additive_constant;
   const uint64_t multiplier=0xd1342543de82ef95;
 
-  //  using simpleGenerator<uint64_t>::simpleGenerator;
-  
   LCGenerator(std::vector<uint64_t> &params) : simpleGenerator<uint64_t>::simpleGenerator(params) {
     if (params.size() != numParameters) {
       std::cerr << "Generator initialized with incorrect number of parameters! Expecting "

@@ -2,7 +2,6 @@
 #include <cstdlib>
 #include <climits>
 #include <vector>
-#include <deque>
 #include <limits>
 #include <exception>
 
@@ -24,6 +23,7 @@ public:
 
 };
 
+// Interface for a simple generator
 template <class T>
 class simpleGenerator : public generator<T> {
 public:
@@ -32,22 +32,15 @@ public:
   virtual size_t getNumParameters() = 0;
 };
 
-/*template <class T>
-class mixer {
-public:
-  virtual T mix(T value) = 0;
-};
-*/
 
+// Template for a combination generator
 template <class T>
 class combinationGenerator : public generator<T> {
 private:
   simpleGenerator<T>* s1, *s2;
-  //  mixer<T> m;
   T (*mixer)(T value);
   
 public:
-  //  combinationGenerator(simpleGenerator<T> p, simpleGenerator<T> q, mixer<T> r) :
   combinationGenerator(simpleGenerator<T> *p, simpleGenerator<T> *q, T (*r)(T) ) :
     s1(p), s2(q), mixer(r)
   {
@@ -55,12 +48,11 @@ public:
   
   combinationGenerator<T>* split() {
     auto x = s1->getNumParameters(), y = s2->getNumParameters();
-    //    std::cout << "parameters size: " << x << " " << y << std::endl;
     std::vector<T> v1, v2;
-
+    
     for(auto i = 0; i < x; i++)
       v1.push_back(this->generateNumber());
-  
+    
     
     for(auto i = 0; i < y; i++)
       v2.push_back(this->generateNumber());

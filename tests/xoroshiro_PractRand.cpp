@@ -4,7 +4,7 @@
 
 int main()
 {
-  std::vector<uint64_t> v {5, 0};
+  std::vector<uint64_t> v {12, 16};
   simpleGenerator<uint64_t> *g = new xoroshiroGenerator(v);
 
   while(true) {

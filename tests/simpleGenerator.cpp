@@ -10,8 +10,6 @@ public:
   
   size_t numParameters = 2;
   
-  //  using simpleGenerator<int>::simpleGenerator;
-  
   exampleGenerator(std::vector<int> &params) : simpleGenerator<int>::simpleGenerator(params) {
     if (params.size() != numParameters) {
       std::cerr << "Generator initialized with incorrect number of parameters! Expecting "
@@ -44,16 +42,14 @@ int main()
 {
   int n = 15;
 
-  std::vector<int> v1 {5,2}, v2 {6, 2};
+  std::vector<int> v1 {5,2};
   std::vector<int> v3 {1};
   
   simpleGenerator<int>* g1 = new exampleGenerator(v1);
-  simpleGenerator<int>* g2 = g1->createNewGenerator(v2);
+  simpleGenerator<int>* g2 = g1->createNewGenerator(v1);
 
   while(n--) {
-    std::cout << g1->generateNumber() << " " << g1->generateNormalized() << std::endl;
-    std::cout << g2->generateNumber() << " " << g2->generateNormalized() << std::endl;
-    std::cout << std::endl;
+    std::cout << g1->generateNumber() << " " << g2->generateNormalized() << std::endl;
   }
 
   simpleGenerator<int>* g3 = g2->createNewGenerator(v3);

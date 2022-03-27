@@ -8,6 +8,10 @@ int main()
   std::vector<uint64_t> v {5, 0};
   simpleGenerator<uint64_t> *g = new LCGenerator(v);
   LCGenerator g1(v);
+
+  std::cout << "Passed: " << v[0] << " " << v[1] << std::endl;
+  std::cout << "Parameters: " << g1.state << " " << g1.additive_constant << std::endl;
+  
   while(n--) {
     std::cout << g->generateNumber() << " " << g->generateNormalized() << std::endl;
   }

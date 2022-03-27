@@ -17,8 +17,6 @@ public:
     return numParameters;
   }
   
-  //  using simpleGenerator<uint64_t>::simpleGenerator;
-
   xoroshiroGenerator(std::vector<uint64_t> &params) : simpleGenerator<uint64_t>::simpleGenerator(params) {
     if (params.size() != numParameters) {
       std::cerr << "Generator initialized with incorrect number of parameters! Expecting "
@@ -60,7 +58,5 @@ public:
     return new xoroshiroGenerator(params);
   }
   
-
-
 };
 

@@ -7,8 +7,13 @@ int main()
 {
   int n = 25;
   std::vector<uint64_t> v {1, 2};
+  std::vector<uint64_t> v2 {0, 0};
+  
   simpleGenerator<uint64_t> *g = new xoroshiroGenerator(v);
-  xoroshiroGenerator g1(v);
+  xoroshiroGenerator g1(v2);
+
+  std::cout << "Passed 0 0" << std::endl;
+  std::cout << "Parameters: " << g1.s0 << " " << g1.s1 << std::endl;
   
   while(n--) {
     std::cout << g->generateNumber() << " " << g->generateNormalized() << std::endl;
