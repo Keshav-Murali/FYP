@@ -47,14 +47,14 @@ public:
   }
   
   combinationGenerator<T>* split() {
-    auto x = s1->getNumParameters(), y = s2->getNumParameters();
+    size_t x = s1->getNumParameters(), y = s2->getNumParameters();
     std::vector<T> v1, v2;
     
-    for(auto i = 0; i < x; i++)
+    for(size_t i = 0; i < x; i++)
       v1.push_back(this->generateNumber());
     
     
-    for(auto i = 0; i < y; i++)
+    for(size_t i = 0; i < y; i++)
       v2.push_back(this->generateNumber());
     
     simpleGenerator<T> *p = s1->createNewGenerator(v1);

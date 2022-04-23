@@ -4,4 +4,6 @@ Misc/
 *~
 #*#
 *.class
+ns/
+ns-mod/
 

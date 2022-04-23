@@ -1,3 +1,6 @@
+#ifndef LCGEN_H
+#define LCGEN_H
+
 #include "generator.hpp"
 
 class LCGenerator : public simpleGenerator<uint64_t> {
@@ -33,3 +36,5 @@ public:
     return numParameters;
   }
 };
+
+#endif

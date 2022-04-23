@@ -1,8 +1,11 @@
+#ifndef XORO_H
+#define XORO_H
+
 #include "generator.hpp"
 #include <random>
 #include <bit>
 
-uint64_t leftRotate(uint64_t n, unsigned int d)
+inline uint64_t leftRotate(uint64_t n, unsigned int d)
 {
     return (n << d)|(n >> (64 - d));
 }
@@ -60,3 +63,4 @@ public:
   
 };
 
+#endif

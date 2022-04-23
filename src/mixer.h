@@ -1,4 +1,7 @@
-uint64_t murmur64(uint64_t z) {
+#ifndef MIXER_H
+#define MIXER_H
+
+inline uint64_t murmur64(uint64_t z) {
     z ^= (z >> 33);
     z *= 0x85ebca6bul;
     z ^= (z >> 33);
@@ -6,7 +9,7 @@ uint64_t murmur64(uint64_t z) {
     return z ^ (z >> 33);
 }
 
-uint64_t degski64(uint64_t z){
+inline uint64_t degski64(uint64_t z){
     z ^= (z >> 32);
     z *= 0xd6e8feb86659fd93ull;
     z ^= (z >> 32);
@@ -14,11 +17,13 @@ uint64_t degski64(uint64_t z){
     return z ^ (z >> 32);
 }
 
-uint64_t lea64(uint64_t z) {
+inline uint64_t lea64(uint64_t z) {
     z ^= (z >> 32);
     z *= 0xdaba0b6eb09322e3ull;
     z ^= (z >> 32);
     z *= 0xdaba0b6eb09322e3ull;
     return z ^ (z >> 32); 
 }
+
+#endif
 
