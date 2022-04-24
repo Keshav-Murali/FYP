@@ -10,6 +10,9 @@ test_LCG:
 	tests/LCGenerator
 	g++ -o tests/LCG_PractRand tests/LCG_PractRand.cpp
 	timeout 20s tests/LCG_PractRand | PractRand/RNG_test stdin64
+test_LCG:
+	g++ -o tests/MRGenerator tests/MRGenerator.cpp
+	tests/MRGenerator
 test_xoro:
 	g++ -o tests/xoroshiro tests/xoroshiro.cpp
 	tests/xoroshiro

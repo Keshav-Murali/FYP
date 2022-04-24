@@ -23,7 +23,7 @@ inline uint64_t lea64(uint64_t z) {
     z ^= (z >> 32);
     z *= 0xdaba0b6eb09322e3ull;
     return z ^ (z >> 32); 
-}
+} 
 
 #endif
 
