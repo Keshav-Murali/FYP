@@ -16,7 +16,7 @@ public:
   virtual T generateNumber() = 0;
 
   // Returns value in [0, 1]
-  double generateNormalized()
+  virtual double generateNormalized()
   {
     return (double) generateNumber() / std::numeric_limits<T>::max();
   }
