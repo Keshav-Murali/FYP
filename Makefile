@@ -27,8 +27,10 @@ test_comb:
 test_LXM:
 	g++ -o tests/LXM tests/LXM.cpp
 	tests/LXM
+	cd TestU01; g++ -o ../tests/test_lxm ../tests/test_lxm.cpp -Iinclude -Llib -ltestu01 -lprobdist -lmylib -lm
+	tests/test_lxm
 	g++ -o tests/LXM_PractRand tests/LXMPractRand.cpp
-	timeout 120s tests/LXM_PractRand | PractRand/RNG_test stdin64
+	timeout 5000s tests/LXM_PractRand | PractRand/RNG_test stdin64
 test_LXM2:
 	g++ -o tests/LXM2_PractRand tests/LXM2PractRand.cpp
 	timeout 5000s tests/LXM2_PractRand | PractRand/RNG_test stdin64
@@ -36,7 +38,9 @@ test_perf:
 	g++ -o tests/ctest tests/ctest.cpp -Ofast -std=c++2a
 	tests/ctest
 	cd tests ; javac timing.java ; java timing
-
+test_mt:
+	cd TestU01; g++ -o ../tests/test_mt ../tests/test_mt.cpp -Iinclude -Llib -ltestu01 -lprobdist -lmylib -lm
+	tests/test_mt
 
 
 
