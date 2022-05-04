@@ -1,0 +1,49 @@
+#include <iostream>
+#include "../src/xoshiro.hpp"
+#include <random>
+#include <chrono>
+
+int main()
+{
+  int n = 25;
+  std::vector<uint64_t> v {1,2,3,4};
+  std::vector<uint64_t> v2 {0, 0, 0, 0};
+  
+  simpleGenerator<uint64_t> *g = new xoshiroGenerator(v);
+  xoshiroGenerator g1(v2);
+
+  std::cout << "Passed 0 0 0 0" << std::endl;
+  std::cout << "Parameters: " << g1.s0 << " " << g1.s1<< " " << g1.s2 << " "<< g1.s3 <<   std::endl;
+  
+  while(n--) {
+    std::cout << g->generateNumber() << " " << g->generateNormalized() << std::endl;
+  }
+
+  n = 100000000;
+  using std::chrono::high_resolution_clock;
+  using std::chrono::duration_cast;
+  using std::chrono::duration;
+  using std::chrono::milliseconds;
+  
+  auto t1 = high_resolution_clock::now();
+  for (auto i = 0; i < n; i++) {
+        g->generateNumber();
+	//	      g1.generateNumber();
+  }
+  auto t2 = high_resolution_clock::now();
+  duration<double, std::milli> ms_double = t2 - t1;
+  std::cout << "Time to generate 10^8 numbers for Xo: " << ms_double.count() << "ms\n";
+
+  n = 1000000000;
+  t1 = high_resolution_clock::now();
+  for (auto i = 0; i < n; i++) {
+            g->generateNormalized();
+    //    g1.generateNormalized();
+  }
+  t2 = high_resolution_clock::now();
+  ms_double = t2 - t1;
+  std::cout << "Time to generate 10^8 fractions for Xo: " << ms_double.count() << "ms\n";
+
+  
+  return 0;
+}
