@@ -16,16 +16,6 @@ test_MRG:
 	g++ -o tests/MRG_PractRand tests/MRG_PractRand.cpp
 #	timeout 45s tests/MRG_PractRand | PractRand/RNG_test stdin64
 	tests/MRG_PractRand | PractRand/RNG_test stdin32
-test_xo:
-	g++ -o tests/xoshiro tests/xoshiro.cpp
-	tests/xoshiro
-	g++ -o tests/xoshiro_PractRand tests/xoshiro_PractRand.cpp
-	timeout 20s tests/xoshiro_PractRand | PractRand/RNG_test stdin64
-test_xor:
-	g++ -o tests/xorshift tests/xorshift.cpp
-	tests/xorshift
-	g++ -o tests/xorshift_PractRand tests/xorshift_PractRand.cpp
-	timeout 20s tests/xorshift_PractRand | PractRand/RNG_test stdin64
 test_xoro:
 	g++ -o tests/xoroshiro tests/xoroshiro.cpp
 	tests/xoroshiro
