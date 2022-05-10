@@ -56,7 +56,7 @@ inline uint32_t rev32(uint32_t v)
     // swap bytes
     v = ((v >> 8) & 0x00FF00FF) | ((v & 0x00FF00FF) << 8);
     // swap 2-byte-long pairs
-    v = ( v >> 16             ) | ( v               << 16);
+    v = (v >> 16) | (v << 16);
     return v;
 }
 
@@ -114,9 +114,9 @@ double mt_double()
 
 void helper(unif01_Gen* x)
 {
-  //  bbattery_SmallCrush(x);
-    bbattery_Crush(x);
-  //  bbattery_BigCrush(x);
+  bbattery_SmallCrush(x);
+  bbattery_Crush(x);
+  bbattery_BigCrush(x);
 }
 
 // Test function, execute after setting curr gen as needed
@@ -124,18 +124,16 @@ void test_generator(std::string name)
 {
   std::string name1;
 
-  /*
   name1 = name + ", lower 32 bits";
   unif01_Gen* gen32 = unif01_CreateExternGenBits((char *) name1.c_str(), lower_32);
   helper(gen32);
   unif01_DeleteExternGenBits(gen32);
-
   
   name1 = name + ", lower 32 bits reversed";
   unif01_Gen* genr32 = unif01_CreateExternGenBits((char *) name1.c_str(), lower_32_rev);
   helper(genr32);
   unif01_DeleteExternGenBits(genr32);
-
+   
   name1 = name + ", upper 32 bits";
   unif01_Gen* genu32 = unif01_CreateExternGenBits((char *)  name1.c_str(), upper_32);
   helper(genu32);
@@ -145,15 +143,9 @@ void test_generator(std::string name)
   unif01_Gen* genur32 = unif01_CreateExternGenBits((char *) name1.c_str(), upper_32_rev);
   helper(genur32);
   unif01_DeleteExternGenBits(genur32);
-  */
-  
+
   name1 = name + ", all bits";
   unif01_Gen* gend = unif01_CreateExternGen01((char *) name1.c_str(), curr_gen_dbl);
   helper(gend);
   unif01_DeleteExternGen01(gend);
-  
 }
-
-
-
-

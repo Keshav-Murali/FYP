@@ -58,33 +58,25 @@ public:
   uint64_t generateNumber()
   {
         int64_t r = s12 - s22;
-	//        double x=state;
-		r -= m1 * ((r - 1) >> 63);
+	r -= m1 * ((r - 1) >> 63);
 
-		// Component 1
-		int64_t p = (a12 * s11 - a13 * s10 + corr1) % m1;
-		s10 = s11;
-		s11 = s12;
-		s12 = p;
-
-		// Component 2
-		p = (a21 * s22 - a23 * s20 + corr2) % m2;
-		s20 = s21;
-		s21 = s22;
-		s22 = p;
-		state =  (double) r * norm;
-//		std::cout << "state: " << state << std::endl;
-
-		//		int64_t x1 = (int64_t) (state * std::numeric_limits<int64_t>::max());
-		
-		//		return  (uint64_t) x1;
-		return (uint64_t) r;
+	// Component 1
+	int64_t p = (a12 * s11 - a13 * s10 + corr1) % m1;
+	s10 = s11;
+	s11 = s12;
+	s12 = p;
+	
+	// Component 2
+	p = (a21 * s22 - a23 * s20 + corr2) % m2;
+	s20 = s21;
+	s21 = s22;
+	s22 = p;
+	state =  (double) r * norm;
+	return (uint64_t) r;
   }
-
+  
   double generateNormalized()
   {
-    //    return this->generateNumber() / std::numeric_limits<uint32_t>::max();
-//    std::cout << "Hi!" << std::endl;
     this->generateNumber();
     return state;
   }

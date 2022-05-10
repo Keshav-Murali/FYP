@@ -25,5 +25,10 @@ inline uint64_t lea64(uint64_t z) {
     return z ^ (z >> 32); 
 } 
 
+inline uint64_t identity(uint64_t z)
+{
+  return z;
+}
+
 #endif
 

@@ -7,8 +7,8 @@
 
 int main()
 {
-  std::vector<uint64_t> v1 {5,2};
-  std::vector<uint64_t> v2 {1, 2};
+  std::vector<uint64_t> v1 {rand(),rand()};
+  std::vector<uint64_t> v2 {rand(), rand()};
   LCGenerator l(v1);
   xoroshiroGenerator x(v2);
   

@@ -24,11 +24,12 @@ test_xoro:
 test_comb:
 	g++ -o tests/combinationGenerator tests/combinationGenerator.cpp
 	tests/combinationGenerator
-test_LXM:
+test_lxm_u01:
+	cd TestU01; g++ -o ../tests/test_lxm ../tests/test_lxm.cpp -Iinclude -Llib -ltestu01 -lprobdist -lmylib -lm -Ofast
+	tests/test_lxm
+test_LXM: test_lxm_u01
 	g++ -o tests/LXM tests/LXM.cpp
 	tests/LXM
-	cd TestU01; g++ -o ../tests/test_lxm ../tests/test_lxm.cpp -Iinclude -Llib -ltestu01 -lprobdist -lmylib -lm
-	tests/test_lxm
 	g++ -o tests/LXM_PractRand tests/LXMPractRand.cpp
 	timeout 5000s tests/LXM_PractRand | PractRand/RNG_test stdin64
 test_LXM2:

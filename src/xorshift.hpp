@@ -39,14 +39,14 @@ public:
   uint64_t generateNumber()
   {
     uint64_t t1 = s0;
-	const uint64_t t0 = s1;
-	const uint64_t x = t0 + t1;
-	s0 = t0;
-	t1 ^= t1 << 23; // a
-	s1 = t1 ^ t0 ^ (t1 >> 18) ^ (t0 >> 5); // b, c
-	return x; 
+    const uint64_t t0 = s1;
+    const uint64_t x = t0 + t1;
+    s0 = t0;
+    t1 ^= t1 << 23; // a
+    s1 = t1 ^ t0 ^ (t1 >> 18) ^ (t0 >> 5); // b, c
+    return x; 
   }
-
+  
   simpleGenerator* createNewGenerator(std::vector<uint64_t> &params) {
     return new xorshiftGenerator(params);
   }

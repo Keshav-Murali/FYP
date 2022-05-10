@@ -36,7 +36,7 @@ int main()
     long long acc1 = 0, acc2 = 0;
 #pragma omp parallel
     {
-      std::mt19937_64 my_mt;
+      std::mt19937_64 my_mt(mt());
 #pragma omp for reduction(+ : acc2)
       for(auto i = 0; i < n; i++) {
 	double y1, y2;
@@ -67,7 +67,7 @@ int main()
     if (err2 < 0)
       err2 *= -1;
     
-    if ((err1 < 0.0001) || (err2 < 0.0001)) {
+    if ((err1 < 0.01) || (err2 < 0.01)) {
       cout << "Estimate from LXM for " << n << " iterations: " << estimate1 << " with error: " << err1 << "%" << endl;
       cout << "Estimate from MT for " << n << " iterations: " << estimate2 << " with error: " << err2 << "%" << endl;
       break;

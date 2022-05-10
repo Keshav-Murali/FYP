@@ -42,21 +42,21 @@ public:
   {
     uint64_t x = leftRotate(s0 + s3, 23) + s0;
 
-	uint64_t t = s1 << 17;
-
-	s2 ^= s0;
-	s3 ^= s1;
-	s1 ^= s2;
-	s0 ^= s3;
-
-	s2 ^= t;
-
-	s3 = leftRotate(s3, 45);
-
-	return x;
-
+    uint64_t t = s1 << 17;
+    
+    s2 ^= s0;
+    s3 ^= s1;
+    s1 ^= s2;
+    s0 ^= s3;
+    
+    s2 ^= t;
+    
+    s3 = leftRotate(s3, 45);
+    
+    return x;
+    
   }
-
+  
   simpleGenerator* createNewGenerator(std::vector<uint64_t> &params) {
     return new xoshiroGenerator(params);
   }
