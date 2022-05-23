@@ -26,7 +26,7 @@ test_comb:
 	tests/combinationGenerator
 test_lxm_u01:
 	cd TestU01; g++ -o ../tests/test_lxm ../tests/test_lxm.cpp -Iinclude -Llib -ltestu01 -lprobdist -lmylib -lm -Ofast
-	tests/test_lxm
+	cd lxm_res; ../tests/test_lxm
 test_LXM: test_lxm_u01
 	g++ -o tests/LXM tests/LXM.cpp
 	tests/LXM

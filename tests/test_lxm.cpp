@@ -14,12 +14,12 @@ int main()
   combinationGenerator<uint64_t> c(&l, &x, &degski64);
   combinationGenerator<uint64_t> *c2 = c.split();
   
-  lxm_wrap_and_set(c2);
+  lxm_wrap_and_set(&c);
   
   //  set_curr_gen(mt);
   //  set_curr_gen_dbl(mt_double);
 
-  test_generator(std::string("LCG+XBG LXM"));
+  test_generator(std::string("LCG+XBG_LXM"));
   
 }
 
