@@ -5,6 +5,9 @@ extern "C" {
 #include <random>
 #include <string>
 #include <iostream>
+#include <cstdio>
+#include <unistd.h>
+#include <fcntl.h>
 
 // #define NUM_SEEDS x should be in the .cpp file that includes this
 
@@ -115,37 +118,82 @@ double mt_double()
 void helper(unif01_Gen* x)
 {
   bbattery_SmallCrush(x);
-  bbattery_Crush(x);
-  bbattery_BigCrush(x);
+  //  bbattery_Crush(x);
+  //  bbattery_BigCrush(x);
 }
 
 // Test function, execute after setting curr gen as needed
 void test_generator(std::string name)
 {
   std::string name1;
-
-  name1 = name + ", lower 32 bits";
-  unif01_Gen* gen32 = unif01_CreateExternGenBits((char *) name1.c_str(), lower_32);
-  helper(gen32);
-  unif01_DeleteExternGenBits(gen32);
   
-  name1 = name + ", lower 32 bits reversed";
-  unif01_Gen* genr32 = unif01_CreateExternGenBits((char *) name1.c_str(), lower_32_rev);
-  helper(genr32);
-  unif01_DeleteExternGenBits(genr32);
-   
-  name1 = name + ", upper 32 bits";
-  unif01_Gen* genu32 = unif01_CreateExternGenBits((char *)  name1.c_str(), upper_32);
-  helper(genu32);
-  unif01_DeleteExternGenBits(genu32);
+  if (fork() == 0) {
+    name1 = name+"_l32";
+    int myfd = open(name1.c_str(), O_CREAT | O_WRONLY | O_TRUNC, 0666);
+    close(1);
+    dup(myfd);
 
-  name1 = name + ", upper 32 bits reversed";
-  unif01_Gen* genur32 = unif01_CreateExternGenBits((char *) name1.c_str(), upper_32_rev);
-  helper(genur32);
-  unif01_DeleteExternGenBits(genur32);
+    unif01_Gen* gen32 = unif01_CreateExternGenBits((char *) name1.c_str(), lower_32);
+    helper(gen32);
+    unif01_DeleteExternGenBits(gen32);
+    
+    exit(0);
+  }
+  
+  if (fork() == 0) {
+    name1 = name+"_l32r";
+    int myfd = open(name1.c_str(), O_CREAT | O_WRONLY | O_TRUNC, 0666);
+    close(1);
+    dup(myfd);
 
-  name1 = name + ", all bits";
-  unif01_Gen* gend = unif01_CreateExternGen01((char *) name1.c_str(), curr_gen_dbl);
-  helper(gend);
-  unif01_DeleteExternGen01(gend);
+    unif01_Gen* genr32 = unif01_CreateExternGenBits((char *) name1.c_str(), lower_32_rev);
+    helper(genr32);
+    unif01_DeleteExternGenBits(genr32);
+    
+    exit(0);
+  }
+  
+  
+  if (fork() == 0) {
+    name1 = name+"_u32";
+    int myfd = open(name1.c_str(), O_CREAT | O_WRONLY | O_TRUNC, 0666);
+    close(1);
+    dup(myfd);
+    
+    unif01_Gen* genu32 = unif01_CreateExternGenBits((char *)  name1.c_str(), upper_32);
+    helper(genu32);
+    unif01_DeleteExternGenBits(genu32);
+    
+    exit(0);
+  }
+  
+
+  if (fork() == 0) {
+    name1 = name+"_u32r";
+    int myfd = open(name1.c_str(), O_CREAT | O_WRONLY | O_TRUNC, 0666);
+    close(1);
+    dup(myfd);
+    
+    unif01_Gen* genur32 = unif01_CreateExternGenBits((char *) name1.c_str(), upper_32_rev);
+    helper(genur32);
+    unif01_DeleteExternGenBits(genur32);
+    
+    exit(0);
+  }
+  
+
+  if (fork() == 0) {
+    name1 = name+"_all";
+    int myfd = open(name1.c_str(), O_CREAT | O_WRONLY | O_TRUNC, 0666);
+    close(1);
+    dup(myfd);
+    
+    unif01_Gen* gend = unif01_CreateExternGen01((char *) name1.c_str(), curr_gen_dbl);
+    helper(gend);
+    unif01_DeleteExternGen01(gend);
+    
+    
+    exit(0);
+  }
+  
 }
