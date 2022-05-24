@@ -16,6 +16,12 @@ test_MRG:
 	g++ -o tests/MRG_PractRand tests/MRG_PractRand.cpp
 #	timeout 45s tests/MRG_PractRand | PractRand/RNG_test stdin64
 	tests/MRG_PractRand | PractRand/RNG_test stdin32
+test_MWCG:
+	g++ -o tests/MWCGenerator tests/MWCGenerator.cpp
+	tests/MWCGenerator
+	g++ -o tests/MWCG_PractRand tests/MWCG_PractRand.cpp
+#	timeout 45s tests/MRG_PractRand | PractRand/RNG_test stdin64
+	tests/MWCG_PractRand | PractRand/RNG_test stdin32
 test_xoro:
 	g++ -o tests/xoroshiro tests/xoroshiro.cpp
 	tests/xoroshiro
