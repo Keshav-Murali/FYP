@@ -21,8 +21,8 @@ public:
   {
     uint64_t x = state;
     const __uint128_t t = MWC_A1 * (__uint128_t)state + c;
-	c = t >> 64;
-	state = uint64_t(t);
+	  c = t >> 64;
+	  state = uint64_t(t);
     return uint64_t(x);
   }
 
