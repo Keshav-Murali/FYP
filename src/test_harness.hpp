@@ -118,8 +118,8 @@ double mt_double()
 void helper(unif01_Gen* x)
 {
   bbattery_SmallCrush(x);
-  //  bbattery_Crush(x);
-  //  bbattery_BigCrush(x);
+  bbattery_Crush(x);
+  bbattery_BigCrush(x);
 }
 
 // Test function, execute after setting curr gen as needed
@@ -130,8 +130,8 @@ void test_generator(std::string name)
   if (fork() == 0) {
     name1 = name+"_l32";
     int myfd = open(name1.c_str(), O_CREAT | O_WRONLY | O_TRUNC, 0666);
-    close(1);
-    dup(myfd);
+    close(1); close(2);
+    dup(myfd); dup(myfd);
 
     unif01_Gen* gen32 = unif01_CreateExternGenBits((char *) name1.c_str(), lower_32);
     helper(gen32);
@@ -143,8 +143,8 @@ void test_generator(std::string name)
   if (fork() == 0) {
     name1 = name+"_l32r";
     int myfd = open(name1.c_str(), O_CREAT | O_WRONLY | O_TRUNC, 0666);
-    close(1);
-    dup(myfd);
+    close(1); close(2);
+    dup(myfd); dup(myfd);
 
     unif01_Gen* genr32 = unif01_CreateExternGenBits((char *) name1.c_str(), lower_32_rev);
     helper(genr32);
@@ -157,8 +157,8 @@ void test_generator(std::string name)
   if (fork() == 0) {
     name1 = name+"_u32";
     int myfd = open(name1.c_str(), O_CREAT | O_WRONLY | O_TRUNC, 0666);
-    close(1);
-    dup(myfd);
+    close(1); close(2);
+    dup(myfd); dup(myfd);
     
     unif01_Gen* genu32 = unif01_CreateExternGenBits((char *)  name1.c_str(), upper_32);
     helper(genu32);
@@ -171,8 +171,8 @@ void test_generator(std::string name)
   if (fork() == 0) {
     name1 = name+"_u32r";
     int myfd = open(name1.c_str(), O_CREAT | O_WRONLY | O_TRUNC, 0666);
-    close(1);
-    dup(myfd);
+    close(1); close(2);
+    dup(myfd); dup(myfd);
     
     unif01_Gen* genur32 = unif01_CreateExternGenBits((char *) name1.c_str(), upper_32_rev);
     helper(genur32);
@@ -185,8 +185,8 @@ void test_generator(std::string name)
   if (fork() == 0) {
     name1 = name+"_all";
     int myfd = open(name1.c_str(), O_CREAT | O_WRONLY | O_TRUNC, 0666);
-    close(1);
-    dup(myfd);
+    close(1); close(2);
+    dup(myfd); dup(myfd);
     
     unif01_Gen* gend = unif01_CreateExternGen01((char *) name1.c_str(), curr_gen_dbl);
     helper(gend);

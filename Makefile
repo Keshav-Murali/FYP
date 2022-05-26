@@ -37,6 +37,12 @@ test_comb:
 test_lxm_u01:
 	cd TestU01; g++ -o ../tests/test_lxm ../tests/test_lxm.cpp -Iinclude -Llib -ltestu01 -lprobdist -lmylib -lm -Ofast
 	cd lxm_res; ../tests/test_lxm
+test_lxm2_u01:
+	cd TestU01; g++ -o ../tests/test_lxm2 ../tests/test_lxm2.cpp -Iinclude -Llib -ltestu01 -lprobdist -lmylib -lm -Ofast
+	cd lxm_res; ../tests/test_lxm2
+test_lxm3_u01:
+	cd TestU01; g++ -o ../tests/test_lxm3 ../tests/test_lxm3.cpp -Iinclude -Llib -ltestu01 -lprobdist -lmylib -lm -Ofast
+	cd lxm_res; ../tests/test_lxm3
 test_LXM: test_lxm_u01
 	g++ -o tests/LXM tests/LXM.cpp
 	tests/LXM

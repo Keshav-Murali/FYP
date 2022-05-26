@@ -20,6 +20,7 @@ int main()
   //  set_curr_gen_dbl(mt_double);
 
   test_generator(std::string("LCG+XBG_LXM"));
+  test_generator(std::string("test"));
   
 }
 
