@@ -55,6 +55,8 @@ test_perf:
 	g++ -o tests/ctest tests/ctest.cpp -Ofast -std=c++2a
 	tests/ctest
 	cd tests ; javac timing.java ; java timing
+	g++ -o tests/lxm_speed tests/lxm_speed.cpp -Ofast -std=c++2a
+	tests/lxm_speed
 test_mt:
 	cd TestU01; g++ -o ../tests/test_mt ../tests/test_mt.cpp -Iinclude -Llib -ltestu01 -lprobdist -lmylib -lm
 	tests/test_mt

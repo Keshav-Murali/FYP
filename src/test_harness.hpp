@@ -167,7 +167,7 @@ void test_generator(std::string name)
     exit(0);
   }
   
-
+  
   if (fork() == 0) {
     name1 = name+"_u32r";
     int myfd = open(name1.c_str(), O_CREAT | O_WRONLY | O_TRUNC, 0666);
@@ -196,4 +196,13 @@ void test_generator(std::string name)
     exit(0);
   }
   
+}
+
+enum test_type {
+      ALL, L32, L32R, U32, U32R
+};
+
+void repeat_tests(test_type t, int rep[], std::string s)
+{
+  return; 
 }

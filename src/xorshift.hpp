@@ -5,7 +5,7 @@
 #include <random>
 #include <bit>
 
-inline uint64_t leftRotate(uint64_t n, unsigned int d)
+inline uint64_t leftRotate2(uint64_t n, unsigned int d)
 {
     return (n << d)|(n >> (64 - d));
 }

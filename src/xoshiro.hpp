@@ -5,7 +5,7 @@
 #include <random>
 #include <bit>
 
-inline uint64_t leftRotate(uint64_t n, unsigned int d)
+inline uint64_t leftRotate3(uint64_t n, unsigned int d)
 {
     return (n << d)|(n >> (64 - d));
 }
@@ -40,7 +40,7 @@ public:
   
   uint64_t generateNumber()
   {
-    uint64_t x = leftRotate(s0 + s3, 23) + s0;
+    uint64_t x = leftRotate3(s0 + s3, 23) + s0;
 
     uint64_t t = s1 << 17;
     
@@ -51,7 +51,7 @@ public:
     
     s2 ^= t;
     
-    s3 = leftRotate(s3, 45);
+    s3 = leftRotate3(s3, 45);
     
     return x;
     

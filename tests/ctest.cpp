@@ -68,9 +68,9 @@ public:
     p1 = s1;
         
     p1 ^= p0;
-    p0 = leftRotate(p0,24);
+    p0 = leftRotate1(p0,24);
     p0 = p0 ^ p1 ^ (p1<<16);
-    p1 = leftRotate(p1,37);
+    p1 = leftRotate1(p1,37);
     
     s0=p0;
     s1=p1;
@@ -148,7 +148,8 @@ int main()
   std::cout << "Time for C LXM with OoO optimization is " << ms_double.count() << "ms\n";
   std::cout << "Value: " << arr[100000] << std::endl;
 
-/*  t1 = high_resolution_clock::now();
+  /*
+  t1 = high_resolution_clock::now();
   for (auto i = 0; i < n; i++) {
     arr1[i] = s.nextLong();
   }
@@ -156,7 +157,7 @@ int main()
   ms_double = t2 - t1;
   std::cout << "Time for C SplitMix is " << ms_double.count() << "ms\n";
   std::cout << "Value: " << arr1[100000] << std::endl;
-*/
+  */
   
   return 0;
 }

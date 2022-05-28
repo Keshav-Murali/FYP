@@ -44,15 +44,15 @@ public:
       std::exit(0);
     }
 	if (params[3] >= m2 || params[4] >= m2 || params[5] >= m2){
-      std::cerr <<"s20 (" << params[3] << "), s21 (" << params[4] << "), and s22 (" << params[5] << ") must be smaller than " << m2;
+	  std::cerr <<"s20 (" << params[3] << "), s21 (" << params[4] << "), and s22 (" << params[5] << ") must be smaller than " << m2;
       std::exit(0);
-    }
-		s10 = params[0];
-		s11 = params[1];
-		s12 = params[2];
-		s20 = params[3];
-		s21 = params[4];
-		s22 = params[5];
+	}
+	s10 = params[0];
+	s11 = params[1];
+	s12 = params[2];
+	s20 = params[3];
+	s21 = params[4];
+	s22 = params[5];
   }
   
   uint64_t generateNumber()

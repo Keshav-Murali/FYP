@@ -5,7 +5,7 @@
 #include <random>
 #include <bit>
 
-inline uint64_t leftRotate(uint64_t n, unsigned int d)
+inline uint64_t leftRotate1(uint64_t n, unsigned int d)
 {
     return (n << d)|(n >> (64 - d));
 }
@@ -44,10 +44,10 @@ public:
     t1=s1;
 
     t1 ^= t0;
-    t0 = leftRotate(t0,24);
+    t0 = leftRotate1(t0,24);
     //    t0 = std::rotl(t0, 24);
     t0 = t0 ^ t1 ^ (t1<<16);
-    t1 = leftRotate(t1,37);
+    t1 = leftRotate1(t1,37);
     //    t1 = std::rotl(t1, 37);
 
     s0=t0;
